@@ -1,0 +1,12 @@
+.container {
+    overflow: auto;
+    display: flex;
+    margin: 20px;
+}
+
+.container > div {
+    margin: 10px;
+}
+
+
+

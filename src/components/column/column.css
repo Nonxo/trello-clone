@@ -1,0 +1,108 @@
+.column {
+    /* column */
+    width: 282px;
+}
+
+.label-heading {
+    margin-bottom: 10px;
+    align-self: flex-start;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 16px;
+    cursor: pointer;
+
+    position: static;
+    width: 248px;
+    height: 116px;
+    left: 17px;
+    top: 44px;
+
+    background-color: #f5fbfe;
+    box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+
+    /* Inside Auto Layout */
+
+    flex: none;
+    /*order: 1;*/
+    flex-grow: 0;
+    margin: 10px 0px;
+}
+.content:hover {
+    transition: all 0.3s ease-out;
+    background: #def2fc;
+    border: 0px solid #1885B4;
+}
+.content:hover p {
+    color: #1885B4;
+}
+
+.content:hover .material-icons {
+    color: #1885B4;
+}
+
+.content p {
+    margin-top: 10px;
+    font-family: Helvetica Neue;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 24px;
+    display: flex;
+    align-items: flex-end;
+    color: #1E1E1E;
+}
+
+.form-control textarea {
+    margin-top: 20px;
+    min-height: 50px;
+    border: 1px solid rgb(141, 150, 182);
+    color: black;
+    border-radius: 4px;
+    display: block;
+    width: 87%;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-family: 'Helvetica Neue', sans-serif;
+}
+
+textarea:focus {
+    outline: 0;
+}
+
+.material-icons {
+    font-size: 17px;
+    color: #666666;
+    cursor: pointer;
+    display: inline-flex;
+    align-self: flex-end;
+}
+
+.edit-icon {
+    float: right;
+}
+
+.edit-icon:hover {
+    color: #1885B4;
+}
+
+.action-text {
+    margin-top: 10px;
+    padding: 5px;
+}
+
+.action-text:hover {
+    background: #d3d3d3;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-card-icon {
+    vertical-align: middle;
+}
+
+
