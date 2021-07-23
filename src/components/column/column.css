@@ -90,9 +90,20 @@ textarea:focus {
     color: #1885B4;
 }
 
+.button {
+    display: inline-flex;
+}
+
+.close-icon {
+    font-size: 30px;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
 .action-text {
     margin-top: 10px;
     padding: 5px;
+    color: #666666;
 }
 
 .action-text:hover {
