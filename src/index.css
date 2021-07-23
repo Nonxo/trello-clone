@@ -5,7 +5,8 @@
 
 body {
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   background: #1885B4;
   margin: 0;
   font-family: 'Helvetica Neue', sans-serif;

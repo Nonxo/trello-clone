@@ -2,11 +2,35 @@ import React, { useState } from "react";
 import "./column.css";
 import useForm from "../../utils/useform";
 
+const Card = ({ data }) => {
+  return (
+    <div className="content">
+      <span className="material-icons edit-icon">edit</span>
+      <p>{data.value}</p>
+    </div>
+  );
+};
+
 const Column = ({ data }) => {
   const [isTextAreaActive, setTextAreaActive] = useState(false);
+  const [cards, setCards] = useState([]);
 
+  // To generate unique Ids for cards
+  const uid = () =>
+    Date.now().toString(36) + Math.random().toString(36).substr(2);
+
+  // Add new Card to a Column
   const submit = () => {
-    console.log(inputs);
+    if (Object.entries(inputs).length === 0) return;
+    let name;
+    let value;
+    for (let key in inputs) {
+      name = key;
+      value = inputs[key];
+    }
+    const newCard = [...cards, { id: uid(), columnId: data.id, name, value }];
+    setCards(newCard);
+    setTextAreaActive(false);
   };
 
   const { handleChange, handleSubmit, inputs } = useForm(submit);
@@ -14,10 +38,9 @@ const Column = ({ data }) => {
   return (
     <div className="card column">
       <h5 className="label-heading">{data.value}</h5>
-      <div className="content">
-        <span className="material-icons edit-icon">edit</span>
-        <p>My name is nonxo nnwabuokei</p>
-      </div>
+      {cards.map((card) => (
+        <Card key={card.id} data={card} />
+      ))}
       {isTextAreaActive && (
         <form className="form-control" onSubmit={handleSubmit}>
           <textarea

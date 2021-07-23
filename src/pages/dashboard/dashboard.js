@@ -8,19 +8,19 @@ const Dashboard = () => {
   const [columns, setColumns] = useState([]);
 
   // To generate unique Ids for columns
-  const uid = function () {
-    return Date.now().toString(36) + Math.random().toString(36).substr(2);
-  };
+  const uid = () =>
+    Date.now().toString(36) + Math.random().toString(36).substr(2);
 
   // Add new columns
   const submit = () => {
+    if (Object.entries(inputs).length === 0) return;
     let name;
     let value;
     for (let key in inputs) {
       name = key;
       value = inputs[key];
     }
-    const newColumn = [...columns, { id: uid(), name: name, value: value }];
+    const newColumn = [...columns, { id: uid(), name, value }];
     setColumns(newColumn);
   };
 
@@ -29,8 +29,9 @@ const Dashboard = () => {
     <div className="container">
       <CardInput handleChange={handleChange} handleSubmit={handleSubmit} />
       <div className="column-section">
-        {columns &&
-          columns.map((column) => <Column key={column.id} data={column} />)}
+        {columns.map((column) => (
+          <Column key={column.id} data={column} />
+        ))}
       </div>
     </div>
   );
