@@ -1,6 +1,8 @@
 .column {
     /* column */
     width: 282px;
+    margin-right: 20px;
+    margin-bottom: 20px;
 }
 
 .label-heading {

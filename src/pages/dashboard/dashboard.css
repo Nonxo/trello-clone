@@ -4,8 +4,12 @@
     margin: 20px;
 }
 
-.container > div {
-    margin: 10px;
+
+.column-section {
+    overflow: auto;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 20px;
 }
 
 
