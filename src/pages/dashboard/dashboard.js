@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./dashboard.css";
 import CardInput from "../../components/card-input/card-input";
 import Column from "../../components/column/column";
@@ -23,6 +23,10 @@ const Dashboard = () => {
     const newColumn = [...columns, { id: uid(), name, value }];
     setColumns(newColumn);
   };
+
+  useEffect(() => {
+    localStorage.setItem("columnList", JSON.stringify(columns));
+  }, [columns]);
 
   const { handleChange, inputs, handleSubmit } = useForm(submit);
   return (
