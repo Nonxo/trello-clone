@@ -17,7 +17,8 @@ const CardInput = (props) => {
           />
         </div>
         <button type="submit" className="button">
-          Save
+          <span className="material-icons add-card-icon">add</span>
+          Add new column
         </button>
       </form>
     </React.Fragment>

@@ -6,7 +6,6 @@ const useForm = (callback) => {
     if (e) {
       e.preventDefault();
       setInputs({});
-      console.log(e);
     }
     e.target.reset();
     callback();
