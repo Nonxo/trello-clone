@@ -21,13 +21,14 @@ const Dashboard = () => {
       name = key;
       value = inputs[key];
     }
-    const newColumn = [...columns, { id: uid(), name, value }];
-    setColumns(newColumn);
+    const newColumns = [...columns, { id: uid(), name, value, tasks: [] }];
+    setColumns(newColumns);
   };
 
   const updateColumn = (previousState, currentState) => {
     const index = _.findIndex(columns, previousState);
     columns.splice(index, 1, currentState);
+    console.log(columns);
   };
 
   // Temporarily store and remove column columns created in-memory

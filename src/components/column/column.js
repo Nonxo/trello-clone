@@ -8,7 +8,7 @@ const Column = (props) => {
   const { data, updateColumn } = props;
   const [isTextAreaActive, setTextAreaActive] = useState(false);
   const [columnUpdate, setColumnUpdate] = useState({});
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(data.tasks);
 
   // To generate unique Ids for cards
   const uid = () =>
@@ -31,8 +31,6 @@ const Column = (props) => {
   const updateSpecificCard = (previousState, currentState) => {
     const index = _.findIndex(cards, previousState);
     cards.splice(index, 1, currentState);
-
-    console.log(cards);
   };
 
   useEffect(() => {
@@ -41,7 +39,7 @@ const Column = (props) => {
         id: data.id,
         name: data.name,
         value: data.value,
-        cards,
+        tasks: cards,
       });
     }
   }, [cards]);
@@ -57,13 +55,16 @@ const Column = (props) => {
     <React.Fragment>
       <div className="card column">
         <h5 className="label-heading">{data.value}</h5>
-        {cards.map((card) => (
-          <Card
-            key={card.id}
-            data={card}
-            updateSpecificCard={updateSpecificCard}
-          />
-        ))}
+        {cards.map(
+          (card) =>
+            card.columnId === data.id && (
+              <Card
+                key={card.id}
+                data={card}
+                updateSpecificCard={updateSpecificCard}
+              />
+            )
+        )}
         {isTextAreaActive && (
           <form className="form-control" onSubmit={handleSubmit}>
             <textarea

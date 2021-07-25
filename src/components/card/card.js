@@ -4,7 +4,7 @@ import useForm from "../../utils/useform";
 
 const Card = ({ data, updateSpecificCard }) => {
   const [showModal, toggleModal] = useState(false);
-  const [cardUpdate, setCardUpdate] = useState({});
+  const [cardDetails, setCardDetails] = useState(data);
 
   // Show modal to edit card
   const handleShow = () => toggleModal(true);
@@ -12,7 +12,7 @@ const Card = ({ data, updateSpecificCard }) => {
   // update Card details
   const update = () => {
     if (Object.entries(inputs).length === 0) return;
-    setCardUpdate({
+    setCardDetails({
       id: data.id,
       columnId: inputs.columnId ? inputs.columnId : data.columnId,
       name: data.name,
@@ -21,25 +21,23 @@ const Card = ({ data, updateSpecificCard }) => {
     toggleModal(false);
   };
 
-  useEffect(() => {
-    if (Object.entries(cardUpdate).length > 0) {
-      debugger;
-      updateSpecificCard(data, cardUpdate);
-    }
-  }, [cardUpdate]);
-
   const { handleChange, handleSubmit, inputs } = useForm(update);
+
+  useEffect(() => {
+    if (Object.entries(inputs).length === 0) return;
+    updateSpecificCard(data, cardDetails);
+  }, [inputs, cardDetails]);
 
   return (
     <React.Fragment>
       <div className="content" onClick={() => handleShow()}>
         <span className="material-icons edit-icon">edit</span>
-        <p>{data.value}</p>
+        <p>{cardDetails.value}</p>
       </div>
       <Modal
         show={showModal}
         toggle={toggleModal}
-        cardDetails={data}
+        cardDetails={cardDetails}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
       />
