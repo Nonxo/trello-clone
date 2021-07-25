@@ -24,7 +24,7 @@ function useOnClickOutside(ref, handler) {
 
 const Modal = (props) => {
   const columnList = JSON.parse(localStorage.getItem("columnList"));
-  const { show, toggle, cardDetails } = props;
+  const { show, toggle, cardDetails, handleChange, handleSubmit } = props;
   const ref = useRef();
 
   useOnClickOutside(ref, () => toggle(false));
@@ -36,11 +36,15 @@ const Modal = (props) => {
           <span className="material-icons close" onClick={() => toggle(false)}>
             close
           </span>
-          <form className="form">
+          <form className="form" onSubmit={handleSubmit}>
             <p>Edit Card Details</p>
             <div className="form-control">
               <label htmlFor="column-list">Select column</label>
-              <select name="column-list" defaultValue={cardDetails.columnId}>
+              <select
+                name="columnId"
+                defaultValue={cardDetails.columnId}
+                onChange={handleChange}
+              >
                 {columnList.map((list) => (
                   <option key={list.id} value={list.id}>
                     {list.value}
@@ -49,8 +53,12 @@ const Modal = (props) => {
               </select>
             </div>
             <div className="form-control">
-              <label htmlFor="card">Edit card tile</label>
-              <textarea name="card" defaultValue={cardDetails.value} />
+              <label htmlFor="value">Edit card tile</label>
+              <textarea
+                name="value"
+                defaultValue={cardDetails.value}
+                onChange={handleChange}
+              />
             </div>
             <button type="submit" className="button">
               Update card

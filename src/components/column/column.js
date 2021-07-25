@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./column.css";
 import useForm from "../../utils/useform";
 import Card from "../card/card";
-import Modal from "../modal/modal";
+import * as _ from "lodash";
 
 const Column = (props) => {
-  const { data } = props;
+  const { data, updateColumn } = props;
   const [isTextAreaActive, setTextAreaActive] = useState(false);
+  const [columnUpdate, setColumnUpdate] = useState({});
   const [cards, setCards] = useState([]);
 
   // To generate unique Ids for cards
@@ -27,6 +28,29 @@ const Column = (props) => {
     setTextAreaActive(false);
   };
 
+  const updateSpecificCard = (previousState, currentState) => {
+    const index = _.findIndex(cards, previousState);
+    cards.splice(index, 1, currentState);
+
+    console.log(cards);
+  };
+
+  useEffect(() => {
+    if (cards.length > 0) {
+      setColumnUpdate({
+        id: data.id,
+        name: data.name,
+        value: data.value,
+        cards,
+      });
+    }
+  }, [cards]);
+
+  useEffect(() => {
+    if (Object.entries(columnUpdate).length === 0) return;
+    updateColumn(data, columnUpdate);
+  }, [columnUpdate]);
+
   const { handleChange, handleSubmit, inputs } = useForm(submit);
 
   return (
@@ -34,7 +58,11 @@ const Column = (props) => {
       <div className="card column">
         <h5 className="label-heading">{data.value}</h5>
         {cards.map((card) => (
-          <Card key={card.id} data={card} />
+          <Card
+            key={card.id}
+            data={card}
+            updateSpecificCard={updateSpecificCard}
+          />
         ))}
         {isTextAreaActive && (
           <form className="form-control" onSubmit={handleSubmit}>

@@ -3,6 +3,7 @@ import "./dashboard.css";
 import CardInput from "../../components/card-input/card-input";
 import Column from "../../components/column/column";
 import useForm from "../../utils/useform";
+import * as _ from "lodash";
 
 const Dashboard = () => {
   const [columns, setColumns] = useState([]);
@@ -24,8 +25,18 @@ const Dashboard = () => {
     setColumns(newColumn);
   };
 
+  const updateColumn = (previousState, currentState) => {
+    const index = _.findIndex(columns, previousState);
+    columns.splice(index, 1, currentState);
+  };
+
+  // Temporarily store and remove column columns created in-memory
   useEffect(() => {
     localStorage.setItem("columnList", JSON.stringify(columns));
+
+    return () => {
+      localStorage.removeItem("columnList");
+    };
   }, [columns]);
 
   const { handleChange, inputs, handleSubmit } = useForm(submit);
@@ -34,7 +45,7 @@ const Dashboard = () => {
       <CardInput handleChange={handleChange} handleSubmit={handleSubmit} />
       <div className="column-section">
         {columns.map((column) => (
-          <Column key={column.id} data={column} />
+          <Column key={column.id} data={column} updateColumn={updateColumn} />
         ))}
       </div>
     </div>
