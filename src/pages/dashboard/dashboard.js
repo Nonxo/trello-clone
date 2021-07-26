@@ -3,7 +3,6 @@ import "./dashboard.css";
 import CardInput from "../../components/card-input/card-input";
 import Column from "../../components/column/column";
 import useForm from "../../utils/useform";
-import * as _ from "lodash";
 
 const Dashboard = () => {
   const [columns, setColumns] = useState([]);
@@ -25,20 +24,25 @@ const Dashboard = () => {
     setColumns(newColumns);
   };
 
-  const updateColumn = (previousState, currentState) => {
-    const index = _.findIndex(columns, previousState);
-    columns.splice(index, 1, currentState);
-    console.log(columns);
+  // Move cards if the column has been updated
+  const moveCardToColumn = (card) => {
+    columns.forEach((column) => {
+      if (card.columnId === column.id) {
+        return column.tasks.push(card);
+      }
+    });
+    setColumns(columns);
   };
 
   // Temporarily store and remove column columns created in-memory
   useEffect(() => {
+    setColumns(columns);
     localStorage.setItem("columnList", JSON.stringify(columns));
 
     return () => {
       localStorage.removeItem("columnList");
     };
-  }, [columns]);
+  });
 
   const { handleChange, inputs, handleSubmit } = useForm(submit);
   return (
@@ -46,7 +50,12 @@ const Dashboard = () => {
       <CardInput handleChange={handleChange} handleSubmit={handleSubmit} />
       <div className="column-section">
         {columns.map((column) => (
-          <Column key={column.id} data={column} updateColumn={updateColumn} />
+          <Column
+            key={column.id}
+            data={column}
+            // updateColumn={updateColumn}
+            changeCardColumn={moveCardToColumn}
+          />
         ))}
       </div>
     </div>

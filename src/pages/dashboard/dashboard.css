@@ -2,13 +2,12 @@
     overflow: auto;
     display: flex;
     margin: 20px;
+    min-height: 94vh;
 }
 
 
 .column-section {
-    overflow: auto;
     display: flex;
-    flex-wrap: wrap;
     margin-left: 20px;
 }
 

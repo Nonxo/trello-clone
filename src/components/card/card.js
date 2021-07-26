@@ -10,9 +10,15 @@ const Card = ({ data, updateSpecificCard }) => {
   const handleShow = () => toggleModal(true);
 
   // update Card details
-  const update = () => {
+  const submit = () => {
     if (Object.entries(inputs).length === 0) return;
     setCardDetails({
+      id: data.id,
+      columnId: inputs.columnId ? inputs.columnId : data.columnId,
+      name: data.name,
+      value: inputs.value ? inputs.value : data.value,
+    });
+    updateSpecificCard(data, {
       id: data.id,
       columnId: inputs.columnId ? inputs.columnId : data.columnId,
       name: data.name,
@@ -21,16 +27,11 @@ const Card = ({ data, updateSpecificCard }) => {
     toggleModal(false);
   };
 
-  const { handleChange, handleSubmit, inputs } = useForm(update);
-
-  useEffect(() => {
-    if (Object.entries(inputs).length === 0) return;
-    updateSpecificCard(data, cardDetails);
-  }, [inputs, cardDetails]);
+  const { handleChange, handleSubmit, inputs } = useForm(submit);
 
   return (
     <React.Fragment>
-      <div className="content" onClick={() => handleShow()}>
+      <div id={cardDetails.id} className="content" onClick={() => handleShow()}>
         <span className="material-icons edit-icon">edit</span>
         <p>{cardDetails.value}</p>
       </div>

@@ -5,9 +5,8 @@ import Card from "../card/card";
 import * as _ from "lodash";
 
 const Column = (props) => {
-  const { data, updateColumn } = props;
+  const { data, changeCardColumn } = props;
   const [isTextAreaActive, setTextAreaActive] = useState(false);
-  const [columnUpdate, setColumnUpdate] = useState({});
   const [cards, setCards] = useState(data.tasks);
 
   // To generate unique Ids for cards
@@ -28,36 +27,26 @@ const Column = (props) => {
     setTextAreaActive(false);
   };
 
+  // Update card details
   const updateSpecificCard = (previousState, currentState) => {
     const index = _.findIndex(cards, previousState);
-    cards.splice(index, 1, currentState);
-  };
-
-  useEffect(() => {
-    if (cards.length > 0) {
-      setColumnUpdate({
-        id: data.id,
-        name: data.name,
-        value: data.value,
-        tasks: cards,
-      });
+    if (previousState.columnId !== currentState.columnId) {
+      cards.splice(index, 1);
+      changeCardColumn(currentState);
+    } else {
+      cards.splice(index, 1, currentState);
     }
-  }, [cards]);
-
-  useEffect(() => {
-    if (Object.entries(columnUpdate).length === 0) return;
-    updateColumn(data, columnUpdate);
-  }, [columnUpdate]);
+  };
 
   const { handleChange, handleSubmit, inputs } = useForm(submit);
 
   return (
     <React.Fragment>
-      <div className="card column">
+      <div id={data.id} className="card column">
         <h5 className="label-heading">{data.value}</h5>
         {cards.map(
           (card) =>
-            card.columnId === data.id && (
+            data.id === card.columnId && (
               <Card
                 key={card.id}
                 data={card}
