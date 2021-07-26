@@ -1,0 +1,15 @@
+.container {
+    overflow: auto;
+    display: flex;
+    margin: 20px;
+    min-height: 94vh;
+}
+
+
+.column-section {
+    display: flex;
+    margin-left: 20px;
+}
+
+
+
