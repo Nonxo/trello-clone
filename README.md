@@ -11,8 +11,6 @@ The core technologies utilized in this web app are:
 
 * JavaScript - the language used to develop the core logic of the dashboard.
 * React - The JavaScript library used to build and manage the core architecture of the dashboard.
-* Redux - This is a React dependency or library used in state management across the dashboard.
-* Redux-Saga - This is a middleware used for handling asynchronous calls and side effect.
 * Html & CSS - These help with structuring the user Interface.
 
 
